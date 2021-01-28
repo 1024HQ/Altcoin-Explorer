@@ -15,41 +15,69 @@ An open source block explorer written in node.js.
 *  *coind
 *  Ubuntu 18.04 (e.g.)
 
-### วิธีติดตั้ง
+### ติดตั้ง Node JS
+    apt-get update
+    apt install npm
+    sudo npm install -g n
+    sudo n stable
+    sudo n 12.14.0
+    sudo npm install forever -g
+    node -v
 
-Enter MongoDB cli:
+### ติดตั้ง Mongo:
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 4B7C549A058F8B6B
+    echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb.list
+    sudo apt-get update
+    sudo apt install mongodb-org=4.2.8 mongodb-org-server=4.2.8 mongodb-org-shell=4.2.8 mongodb-org-mongos=4.2.8 mongodb-org-tools=4.2.8
+    sudo systemctl start mongod
+    mongodb
 
-    $ mongo
+### Create databse:
 
-Create databse:
+    mongo
+    use explorer
+    db.createUser( { user: "hq1024", pwd: "7U@Q5mX!$PBgXyMQMhf!", roles: [ "readWrite" ]} )
+    exit
 
-    > use explorerdb
+### Install:
 
-Create user with read/write access:
+    git clone https://github.com/1024HQ/explorer.git
+    cd explorer
+    npm install --production
 
-    > db.createUser( { user: "iquidus", pwd: "3xp!0reR", roles: [ "readWrite" ] } )
+### ตั้งค่าไฟล์ settings.json
+    https://github.com/1024HQ/explorer/blob/master/setting.json
 
-*Note: If you're using mongo shell 4.2.x, use the following to create your user:
+### เปิด Screen สำหรับรัน
 
-    > db.addUser( { user: "username", pwd: "password", roles: [ "readWrite"] })
-
-### Get the source
-
-    git clone https://github.com/iquidus/explorer explorer
-
-### Install node modules
-
-    cd explorer && npm install --production
-
-### Configure
-
-    cp ./settings.json.template ./settings.json
-
-*Make required changes in settings.json*
-
-### Start Explorer
-
+    sudo screen -S explorer
+    cd explorer
     npm start
+    ctrl+a & d #เพื่อออกจาก screen หรือ จะเปิดสองจอด้วย Duplicate Session ของ putty ก็ได้สะดวกดี
+
+### Update ข้อมูล coind เข้าฐานข้อมูล
+
+    node scripts/sync.js index reindex
+    node scripts/sync.js index update
+    
+### ใช้งาน crontab เพื่อสั่งอัพเดตข้อมูลอัตโนมัติ
+    // เลือก nano นะ
+    sudo crontab -e
+    // ใส่ข้อมูลด้านล่างนี้เข้าไป
+    */1 * * * * cd /root/explorer && node scripts/sync.js index update > /dev/null 2>&1
+    */2 * * * * cd /root/explorer && node scripts/sync.js market > /dev/null 2>&1
+    */5 * * * * cd /root/explorer && node scripts/peers.js > /dev/null 2>&1
+    // แล้วจากนั้นบันทึกไฟล์ ctrl+x y และ Enter
+    sudo service cron restart
+
+### เจอปัญหาข้อมูลไม่อัพเดต **script is already running.**
+
+    cd explorer/tmp/
+    rm index.pid
+    rm db_index.pid
+// จากนั้นลองใหม่อีกครั้ง
+
+
 
 *Note: mongod must be running to start the explorer*
 
@@ -57,7 +85,7 @@ As of version 1.4.0 the explorer defaults to cluster mode, forking an instance o
 
     node --stack-size=10000 bin/instance
 
-To stop the cluster you can use
+To หยุดการทำงาน cluster โดยใช้คำสั่งนี้
 
     npm stop
 
@@ -83,34 +111,12 @@ sync.js (located in scripts/) is used for updating the local databases. This scr
       index_timeout in settings.json is set too low.
 
 
-*It is recommended to have this script launched via a cronjob at 1+ min intervals.*
-
-**crontab**
-
-*Example crontab; update index every minute and market data every 2 minutes*
-
-    */1 * * * * cd /path/to/explorer && /usr/bin/nodejs scripts/sync.js index update > /dev/null 2>&1
-    */2 * * * * cd /path/to/explorer && /usr/bin/nodejs scripts/sync.js market > /dev/null 2>&1
-    */5 * * * * cd /path/to/explorer && /usr/bin/nodejs scripts/peers.js > /dev/null 2>&1
-
-### Wallet
-
-Iquidus Explorer is intended to be generic, so it can be used with any wallet following the usual standards. The wallet must be running with atleast the following flags
-
+### Wallet ต้องเปิด daemon=1 และ txindex=1 ใน coin.conf หรือรันด้วยคำสั่งนี้ต่อท้าย coind
     -daemon -txindex
     
 ### Security
 
 Ensure mongodb is not exposed to the outside world via your mongo config or a firewall to prevent outside tampering of the indexed chain data. 
-
-### Known Issues
-
-**script is already running.**
-
-If you receive this message when launching the sync script either a) a sync is currently in progress, or b) a previous sync was killed before it completed. If you are certian a sync is not in progress remove the index.pid and db_index.pid from the tmp folder in the explorer root directory.
-
-    rm tmp/index.pid
-    rm tmp/db_index.pid
 
 **exceeding stack size**
 
