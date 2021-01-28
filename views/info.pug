@@ -57,7 +57,7 @@ block content
               a(href='/api/getrawtransaction?txid='+hashes.txhash+'&decrypt=0') #{address}/api/getrawtransaction?txid=#{hashes.txhash}&decrypt=0
               br
               a(href='/api/getrawtransaction?txid='+hashes.txhash+'&decrypt=1') #{address}/api/getrawtransaction?txid=#{hashes.txhash}&decrypt=1
-          if(settings.index.show_hashrate)
+          if(settings.index.show_hashrate_api)
             li
               p
                 strong getnetworkhashps

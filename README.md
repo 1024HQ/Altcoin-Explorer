@@ -1,22 +1,21 @@
-Iquidus Explorer - 1.7.4
+Altcoin Explorer 1.0
+[Fork From Iquidus Explorer]
 ================
 
 An open source block explorer written in node.js.
 
-### See it in action
+### ตัวอย่าง
 
-*  [List of live explorers running Iquidus](https://github.com/iquidus/explorer/wiki/Live-Explorers)
-
-
-*Note: If you would like your instance mentioned here contact me*
+*  [Litecoingreen](https://explorer.hi.in.th)
 
 ### Requires
 
-*  node.js >= 8.17.0 (12.14.0 is advised for updated dependencies)
-*  mongodb 4.2.x
+*  node.js >= 8.17.0 (12.14.0 แนะนำ)
+*  mongodb 4.2.x (4.2.8 แนะนำ)
 *  *coind
+*  Ubuntu 18.04 (e.g.)
 
-### Create database
+### วิธีติดตั้ง
 
 Enter MongoDB cli:
 

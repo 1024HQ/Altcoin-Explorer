@@ -19,7 +19,7 @@ var app = express();
 bitcoinapi.setWalletDetails(settings.wallet);
 if (settings.heavy != true) {
   bitcoinapi.setAccess('only', ['getinfo', 'getnetworkhashps', 'getmininginfo', 'getdifficulty', 'getconnectioncount',
-    'getblockcount', 'getblockhash', 'getblock', 'getrawtransaction', 'getpeerinfo', 'gettxoutsetinfo', 'verifymessage']);
+    'getblockcount', 'getblockhash', 'getblock', 'getrawtransaction', 'getpeerinfo', 'gettxoutsetinfo', 'verifymessage','getMiningInfo']);
 } else {
   // enable additional heavy api calls
   /*

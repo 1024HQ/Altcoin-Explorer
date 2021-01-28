@@ -1,9 +1,9 @@
 /*
-  นี่คือ CONFIG สำหรับตั้งค่าระบบ Explorer ให้ COPY ไฟล์นี้เป็นชื่อใหม่ว่า settings.json
+  นี่คือ CONFIG สำหรับตั้งค่าระบบ Explorer
 */
 {
 // ชื่อ Explorer
-  "title": "IQUIDUS",
+  "title": "Litecoingreen",
  //domain หรือ ไอพี
   "address": "https://explorer.hi.in.th",
 
@@ -82,6 +82,8 @@
   // index page (valid options for difficulty are POW, POS or Hybrid)
   "index": {
     "show_hashrate": true,
+	// api show or not
+	"show_hashrate_api": false,
     // Show Market Cap in header
     "show_market_cap": false,
     // Show Market Cap in place of price box
@@ -132,9 +134,9 @@
 
   // twitter, facebook, googleplus, youtube
   "twitter": "1024_hq",
-  "facebook": "https://www.facebook.com/1024HQ/",
+  "facebook": "1024HQ",
   "googleplus": "yourgooglepluspage",
-  "youtube": "https://www.youtube.com/c/MarkerLnwzcc/",
+  "youtube": "MarkerLnwzcc",
 
   //genesis
   //getblockhash 0
@@ -167,10 +169,11 @@
   // how to acquire network hashrate
   // getnetworkhashps: uses getnetworkhashps api call, returns in GH/s
   // netmhashps: uses getmininginfo.netmhashpsm returns in MH/s
+  // POC : poc system
   "nethash": "getnetworkhashps",
 
   // nethash unitd: sets nethash API return units
-  // valid options: "P" (PH/s), "T" (TH/s), "G" (GH/s), "M" (MH/s), "K" (KH/s)
+  // valid options: "P" (PH/s), "T" (TH/s), "G" (GH/s), "M" (MH/s), "K" (KH/s), "POC" (TB/s)
   "nethash_units": "K",
 
   // Address labels
