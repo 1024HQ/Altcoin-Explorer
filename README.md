@@ -41,7 +41,7 @@ An open source block explorer written in node.js.
 
 ### Install:
 
-    git clone https://github.com/1024HQ/explorer.git
+    git clone https://github.com/1024HQ/Altcoin-Explorer.git
     cd explorer
     npm install --production
 
