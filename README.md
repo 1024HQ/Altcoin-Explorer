@@ -6,7 +6,7 @@ An open source block explorer written in node.js.
 
 ### ตัวอย่าง
 
-*  [Litecoingreen](https://explorer.hi.in.th)
+*  [Litecoingreen](http://explorer.hi.in.th)
 
 ### Requires
 
